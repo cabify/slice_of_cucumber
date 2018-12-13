@@ -41,4 +41,27 @@ If we run `cucumber` now, the tool will tell us there is nothing for it to execu
 0m0.000s
 ```
 
-Now we have to give it something to run!
+## So, what is this `cucumber` thingy I have just installed?
+
+Good question.
+
+`Cucumber` is a software tool that executes behaviour specifications written in a near-to-natural language called `Gherkin`. 
+
+In other words, you write software behaviour in a language similar to plain english (there are a couple of rules you must follow, we'll see them soon), save it to a file and tell `cucumber` to execute it. And `cucumber` does it (at least it tries).
+
+This is an example of one of those files:
+
+```
+Feature: Is it Friday yet?
+  Everyone in the office wants to know when it's Friday.
+  Which are the rules to know when it's Friday?
+
+  Scenario: Monday isn't Friday
+    Given today is Monday
+    When I ask whether it's Friday yet
+    Then I should be told "No"
+```
+
+In fact, in this file there are `keywords` that `cucumber` uses to parse the information, and execute a `Scenario` (a specific example about how the described system must behave). This `Scenario` is composed by different `Steps` (those `Given`, `When` and `Then` lines) which in fact will be executed sequentially by `cucumber`.
+
+Ok, let's try this.
