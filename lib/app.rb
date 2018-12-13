@@ -24,13 +24,13 @@ class App < Sinatra::Base
   end
 
   put('/vehicle') { add_vehicle(DB.conn()) }
-  post('/vehicle/:id') { update_vehicle(DB.conn()) }
-  delete('/vehicle/:id') { delete_vehicle(DB.conn()) }
-  get('/vehicle/:id') { get_vehicle(DB.conn()) }
+  get('/vehicle/:plate_number') { get_vehicle(DB.conn()) }
+  post('/vehicle/:plate_number') { update_vehicle(DB.conn()) }
+  delete('/vehicle/:plate_number') { delete_vehicle(DB.conn()) }
 
   get('/vehicles') { get_all_vehicles(DB.conn()) } 
   get('/vehicles/:city') { get_city_vehicles(DB.conn()) }
-  post('/vehicles/reserve_now') { reserve_vehicle(DB.conn()) }
+  post('/vehicles/reserve') { reserve_vehicle(DB.conn()) }
 
   run!
 end

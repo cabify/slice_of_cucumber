@@ -5,7 +5,7 @@ module Database
     def initialize()
       @db = Sequel.sqlite
       @db.create_table :vehicles do
-        primary_key :id
+        String :plate_number, primary_key: true
         String :model
         String :city
         String :state

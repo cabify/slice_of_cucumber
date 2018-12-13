@@ -5,12 +5,12 @@ module Sinatra
     def get_address(lat, lon)
       response = HTTParty.get("https://nominatim.openstreetmap.org/reverse?format=json&lat=#{lat}&lon=#{lon}")
       address = JSON.parse(response.body)["address"]
-      puts address
+      puts "coordinates [#{lat},#{lon}], address: #{address}"
       address
     end
 
     def valid_address?(address)
-      ["Madrid", "Barcelona", "Valencia"].include?(address["city"])
+      ["Madrid", "Barcelona", "Sevilla"].include?(address["city"])
     end
 
     def get_city!(lat, lon)

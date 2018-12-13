@@ -20,55 +20,66 @@ end
 module Sinatra
   module VehiclesHelper
     def add_vehicle(conn)
-      require 'byebug'
-      byebug
       request.body.rewind
 
       vehicle = JSON.parse(request.body.read)
       vehicle = vehicle.transform_keys(&:to_sym)
 
-      vehicle[:state] = "free"
-      vehicle[:city] = get_city!(vehicle[:lat], vehicle[:lon]) 
+      puts "add vehicle #{vehicle}"
 
-      vehicle_id = conn.insert(vehicle)
+      required_fields_presence = [:model, :plate_number, :lat, :lon].map do |field|
+        vehicle.keys.include?(field) &&
+        !vehicle[field].empty? &&
+        !vehicle[field].nil?
+      end
 
-      halt(200, conn.where(:id => vehicle_id).first.to_json)
+      unless required_fields_presence.include?(false)
+        vehicle[:state] = "free"
+        vehicle[:city] = get_city!(vehicle[:lat], vehicle[:lon]) 
+
+        conn.insert(vehicle)
+
+        halt(200, conn.where(:plate_number => vehicle[:plate_number]).first.to_json)
+      end
+      halt(400, "missing fields".to_json)
     rescue StandardError => e
       halt(500, e.to_json)
     end
 
-    def update_vehicle(conn, values)
-      id = params["id"]
+    def update_vehicle(conn)
+      plate_number = params["plate_number"]
       request.body.rewind
 
       values = JSON.parse(request.body.read)
       values = values.transform_keys(&:to_sym)
-      values[:city] = get_city!(vehicle[:lat], vehicle[:lon])
-      puts values
 
-      vehicle = conn.where(id: id, state: "free").first
+      values[:city] = get_city!(values[:lat], values[:lon])
+
+      vehicle = conn.where(plate_number: plate_number, state: "free").first
 
       unless vehicle.nil? 
-        conn.where(id: id).update(lon: values[:lon], lat: values[:lat], city: values[:city])
-        halt(200, conn.where(id: id).first.to_json)
+        conn.where(plate_number: plate_number).update(lon: values[:lon], lat: values[:lat], city: values[:city])
+        puts "updated vehicle #{vehicle}"
+        halt(200, conn.where(plate_number: plate_number).first.to_json)
       end
       halt(404)
     rescue StandardError => e
       halt(500, e.to_json)
     end
 
-    def delete_vehicle(conn, id)
-      id = params["id"]
-      unless conn.where(id: id).first.nil?
-        conn.where(id: id).delete()
+    def delete_vehicle(conn)
+      plate_number = params["plate_number"]
+      unless conn.where(plate_number: plate_number).first.nil?
+        conn.where(plate_number: plate_number).delete()
+        puts "deleted vehicle #{plate_number}"
         halt(200)
       end
       halt(404)
     end
 
     def get_vehicle(conn)
-      id = params["id"]
-      vehicle = conn.where(id: id).first
+      plate_number = params["plate_number"]
+      vehicle = conn.where(plate_number: plate_number).first
       unless vehicle.nil?
         halt(200, vehicle.to_json)
       end
@@ -78,11 +89,7 @@ module Sinatra
     end
 
     def get_all_vehicles(conn)
-      vehicles = conn.all()
-      unless vehicles.nil? || vehicles.empty?
-        halt(200, vehicles.to_json)
-      end
-      halt(404)
+      halt(200, conn.all().to_json)
     rescue StandardError => e
       halt(500, e)
     end
@@ -104,22 +111,22 @@ module Sinatra
       from = JSON.parse(request.body.read)
       from = from.transform_keys(&:to_sym)
 
-      puts from
+      puts "requested reservation, coordinates: [#{from[:lat]},#{from[:lon]}]"
 
       city = get_city!(from[:lat], from[:lon]) 
       vehicles = conn.where(city: city, state: "free").all()
 
       unless vehicles.nil? || vehicles.empty?
-        nearest = Distance::get_nearest(vehicles, from[:lat], from[:lon])
-        conn.where(id: nearest[:id]).update(state: "reserved")
+        nearest = Distance::get_nearest(vehicles, from[:lat].to_f, from[:lon].to_f)
+        conn.where(plate_number: nearest[:plate_number]).update(state: "reserved")
 
         Thread.new do
           sleep(10)
-          puts "freeing vehicle #{nearest[:id]}"
-          conn.where(id: nearest[:id]).update(state: "free")
+          puts "freeing vehicle #{nearest[:plate_number]}"
+          conn.where(plate_number: nearest[:plate_number]).update(state: "free")
         end
         
-        halt(200, conn.where(id: nearest[:id]).first.to_json)
+        halt(200, conn.where(plate_number: nearest[:plate_number]).first.to_json)
       end
       halt(404)
     rescue StandardError => e

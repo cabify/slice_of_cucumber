@@ -50,3 +50,4 @@ build-iPhoneSimulator/
 .rvmrc
 
 .byebug_history
+.DS_Store
