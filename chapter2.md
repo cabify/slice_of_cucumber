@@ -155,7 +155,7 @@ bundle install
 ./bin/start
 ```
 
-This will start a server listening at `http://localhost:4567`. You can use any tool as Postman or httpie to interact with it. It uses an in-memory database, so if you restart the application all the data in your database will be lost.
+This will start a server listening at `http://localhost:4567`. You can use any tool sucha as [Postman](https://www.getpostman.com/) or [httpie](https://httpie.org/) to interact with it. It uses an in-memory database, so if you restart the application all the data in your database will be lost.
 
 ### And now?
 
