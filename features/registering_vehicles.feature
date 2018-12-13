@@ -8,7 +8,7 @@ When a vehicle is registered, its initial state must be "free" and its city must
 @negative
 Scenario Outline: A user can register any number of vehicles by providing their model, plate number and parking coordinates (latitude and longitude).
 	Given a vehicle with the following details:
-		| model 	| plate_number   | lat 	 | lon 	|
+		| model 	| plate_number   | lat 	 | lon 	 |
 		| <model> | <plate_number> | <lat> | <lon> |
 	When the user registers the vehicle
 	Then the registration is rejected with the message '<message>'
