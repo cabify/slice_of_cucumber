@@ -26,7 +26,7 @@ Scenario Outline: When a vehicle is registered, its initial state must be "free"
 	Given a vehicle with the following details:
 		| model   | plate_number   | lat   | lon   |
 		| <model> | <plate_number> | <lat> | <lon> |		
-	When the user registers the vehicle
+	When the user registers the vehicle 
 	Then the vehicle with the plate number '<plate_number>' must have state '<state>' and city '<city>'
 	And the vehicle with the plate number '<plate_number>' must appear when viewing all the vehicles in the city '<city>'
 	Examples:
