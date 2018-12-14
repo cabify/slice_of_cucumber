@@ -32,7 +32,7 @@ Given("there are vehicles registered with the following details:") do |table|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-When("a user reserves a vehicle at coordinates {string}{float}'") do |string, float|
+When("a user reserves a vehicle at coordinates {string},{float}") do |string, string|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
