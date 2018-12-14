@@ -6,6 +6,11 @@ We are going to work with ruby cucumber so, if you don't have ruby installed thi
 rvm install 2.5.1
 ```
 
+Clone this repository to start working on it
+```
+git clone https://github.com/cabify/slice_of_cucumber.git
+```
+
 Now we'll install `Bundler`
 ```
 gem install bundler
