@@ -34,8 +34,8 @@ The system exposes the following endpoints:
   ```
   {
       "model": "Opel Corsa",
-      "lat": 40.40,
-      "lon": -3.71,
+      "lat": "40.40",
+      "lon": "-3.71",
       "plate_number": "1111X"
   }
   ```
@@ -43,8 +43,8 @@ The system exposes the following endpoints:
   ```
   {
       "city": "Madrid",
-      "lat": 40.4,
-      "lon": -3.71,
+      "lat": "40.4",
+      "lon": "-3.71",
       "model": "Opel",
       "plate_number": "1111X",
       "state": "free"
@@ -56,16 +56,16 @@ The system exposes the following endpoints:
   Request payload (all the fields are mandatory):
   ```
   {
-      "lat": 40.42,
-      "lon": -3.72
+      "lat": "40.42",
+      "lon": "-3.72"
   }
   ```
   Response payload:
   ```
   {
     "city": "Madrid",
-    "lat": 40.42,
-    "lon": -3.72,
+    "lat": "40.42",
+    "lon": "-3.72",
     "model": "Opel",
     "plate_number": "1111X",
     "state": "free"
@@ -78,8 +78,8 @@ The system exposes the following endpoints:
   ```
   {
       "city": "Madrid",
-      "lat": 40.42,
-      "lon": -3.72,
+      "lat": "40.42",
+      "lon": "-3.72",
       "model": "Opel",
       "plate_number": "1111X",
       "state": "free"
@@ -96,16 +96,16 @@ The system exposes the following endpoints:
   [
       {
           "city": "Madrid",
-          "lat": 40.42,
-          "lon": -3.72,
+          "lat": "40.42",
+          "lon": "-3.72",
           "model": "Opel Corsa",
           "plate_number": "1111X",
           "state": "free"
       },
       {
           "city": "Barcelona",
-          "lat": 41.38,
-          "lon": 2.17,
+          "lat": "41.38",
+          "lon": "2.17",
           "model": "Renault 5",
           "plate_number": "2222X",
           "state": "free"
@@ -120,8 +120,8 @@ The system exposes the following endpoints:
   [
       {
           "city": "Madrid",
-          "lat": 40.42,
-          "lon": -3.72,
+          "lat": "40.42",
+          "lon": "-3.72",
           "model": "Opel Corsa",
           "plate_number": "1111X",
           "state": "free"
@@ -134,16 +134,16 @@ The system exposes the following endpoints:
   Request payload:
   ```
   {
-      "lat": 40.57,
-      "lon": -3.68
+      "lat": "40.57",
+      "lon": "-3.68"
   }
   ```
   Response payload:
   ```
   {
       "city": "Madrid",
-      "lat": 40.42,
-      "lon": -3.72,
+      "lat": "40.42",
+      "lon": "-3.72",
       "model": "Opel Corsa",
       "plate_number": "1111X",
       "state": "reserved"
