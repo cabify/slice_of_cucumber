@@ -187,7 +187,7 @@ Given("a vehicle with the following details, model: {string}, plate_number: {str
 end
 
 When("a user registers the vehicle") do
-  @last_response = HTTParty.put('http://localhost:4567/vehicle', body: @vehicle)
+  @last_response = HTTParty.put('http://localhost:4567/vehicle', body: @vehicle.to_json)
 end
 
 Then("the registration is rejected with the message {string}") do |message|
