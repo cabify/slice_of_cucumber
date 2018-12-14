@@ -6,7 +6,7 @@ On the previous chapter we introduced some rules that describe the behaviour of 
   - plate number
   - coordinates where the vehicle is parked (lat and lon)
 
-We will start by writing an scenario that describes this rule.
+We will start by writing an scenario that describes this rule. 
 
 ## Writing Gherkin
 
@@ -115,7 +115,7 @@ Open the file `/features/support/env.rb` and write the following content:
 
 ```
 module StateHelper
-  attr_accesor :vehicle
+  attr_accessor :vehicle
 end
 
 World(StateHelper) #here we are telling our World to use the StateHelper module
